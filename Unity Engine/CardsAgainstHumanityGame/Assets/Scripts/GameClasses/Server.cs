@@ -8,7 +8,6 @@ public struct Server
     string serverSecret;
 
     //endpoint (routing)
-    
 
     int players;
     int maxPlayers;
