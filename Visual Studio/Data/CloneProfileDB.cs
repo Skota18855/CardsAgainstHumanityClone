@@ -44,9 +44,9 @@ namespace CardsAgainstHumanityClone.Data
             return profiles;
         }
 
-        public Profile SearchForProfile(string userName)
+        public IEnumerable<Profile> SearchForProfile(string userName)
         {
-            return profiles.Where(x => x.UserName == userName).FirstOrDefault();
+            return profiles.Where(x => x.UserName == userName);
         }
     }
 }
