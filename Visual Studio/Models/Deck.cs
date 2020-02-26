@@ -8,28 +8,27 @@ namespace CardsAgainstHumanityClone.Models
     public enum eReplaceType
     {
         Discard,
-        Top, 
+        Top,
         Bottom,
         Shuffle
     }
 
-    public class BlackDeck
+    public class Deck<T>
     {
-        // Represents all card that are a part of the deck 
-        public BlackCard[] DeckCards { get; set; }
+        // Represents all cards that are a part of the main deck
+        protected T[] DeckCards { get; set; }
+        // Represents all cards taht are a part fo the discard pile.
+        protected T[] DiscardPile { get; set; }
 
-        // Represents all cards that are a part of the discard pile (if applicable)
-        public BlackCard[] DiscardedCards { get; set; }
-        
         /// <summary>
-        /// Returns an array of BlackCard equal to the amount specified. Cards returned will be removed from the active deck.
+        /// Returns an array of Cards equal to the amount specified. Cards returned will be removed from the active deck.
         /// </summary>
         /// <param name="amount">The amount of cards to be drawn.</param>
-        /// <returns>An array of BlackCards from the top of the deck (starting at index 0 of the Main Deck array)</returns>
-        public BlackCard[] DrawCards(int amount = 1)
+        /// <returns>An array of Cards from the top of the deck (starting at index 0 of the Main Deck array)</returns>
+        public T[] DrawCards(int amount = 1)
         {
             if (amount > DeckCards.Length) throw new ArgumentException("Cannot pass in a value greater than the size of the current deck.");
-            BlackCard[] result = new BlackCard[amount];
+            T[] result = new T[amount];
 
             for (int i = 0; i < amount; i++)
             {
@@ -37,13 +36,13 @@ namespace CardsAgainstHumanityClone.Models
             }
 
             int deckSize = DeckCards.Length;
-            BlackCard[] tempDeck = new BlackCard[deckSize - amount];
+            T[] tempDeck = new T[deckSize - amount];
 
             for (int i = amount; i < DeckCards.Length; i++)
             {
                 tempDeck[i - amount] = DeckCards[i];
             }
-            
+
             DeckCards = tempDeck;
 
             return result;
@@ -52,17 +51,17 @@ namespace CardsAgainstHumanityClone.Models
         /// <summary>
         /// Replaces the returnedCards passed in either back into the deck or the discard pile depending on the ReplaceType used. 
         /// </summary>
-        /// <param name="type">The replace type to use. Discard will push the cards to the discar pile while all other types will place the cards into the main deck as specified.</param>
-        /// <param name="returnedCards"></param>
-        public void ReplaceCards(eReplaceType type, BlackCard[] returnedCards)
+        /// <param name="type">The replace type to use.</param>
+        /// <param name="returnedCards">The array of Cards being returned.</param>
+        public void ReplaceCards(eReplaceType type, T[] returnedCards)
         {
             int length;
-            BlackCard[] tempDeck;
+            T[] tempDeck;
             switch (type)
             {
                 case eReplaceType.Discard:
                     length = DiscardedCards.Length + returnedCards.Length;
-                    tempDeck = new BlackCard[length];
+                    tempDeck = new T[length];
                     int discardLength = DiscardedCards.Length;
                     for (int i = 0; i < discardLength; i++)
                     {
@@ -76,7 +75,7 @@ namespace CardsAgainstHumanityClone.Models
                     break;
                 case eReplaceType.Top:
                     length = DeckCards.Length + returnedCards.Length;
-                    tempDeck = new BlackCard[length];
+                    tempDeck = new T[length];
 
                     int returnedLength = returnedCards.Length;
                     for (int i = 0; i < returnedLength; i++)
@@ -92,7 +91,7 @@ namespace CardsAgainstHumanityClone.Models
                     break;
                 case eReplaceType.Bottom:
                     length = DeckCards.Length + returnedCards.Length;
-                    tempDeck = new BlackCard[length];
+                    tempDeck = new T[length];
 
                     int deckLength = DeckCards.Length;
                     for (int i = 0; i < deckLength; i++)
@@ -123,14 +122,14 @@ namespace CardsAgainstHumanityClone.Models
         {
             if (withDiscard) ReplaceDiscardedCards(eReplaceType.Top);
             List<BlackDeck> deckList = DeckCards;
-            BlackCard[] deckArray = BlackCard[DeckCards.Length];
+            T[] deckArray = T[DeckCards.Length];
             Random rng = new Random();
 
             int size = deckArray.Length;
             for (int i = 0; i < size; i++)
             {
                 int index = rng.Next(0, deckList.Count());
-                BlackCard card = deckList.ElementAt(index);
+                T card = deckList.ElementAt(index);
                 deckArray[i] = card;
                 deckList.Remove(card);
             }
@@ -143,11 +142,12 @@ namespace CardsAgainstHumanityClone.Models
         public void ReplaceDiscardedCards(eReplaceType replaceType = eReplaceType.Shuffle)
         {
             ReplaceCards(replaceType, DiscardedCards);
-            DiscardedCards = new BlackCard[];
+            DiscardedCards = new T[];
         }
-    }
-    public class WhiteDeck
-    {
 
     }
+
+    public class BlackDeck : Deck<BlackCard> { }
+
+    public class WhiteDeck : Deck<WhiteCard> { }
 }
