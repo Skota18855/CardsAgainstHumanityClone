@@ -34,9 +34,13 @@ namespace CardsAgainstHumanityClone.Data
             return isSuccessful;
         }
 
-        public void DeleteProfile(int index)
+        public void DeleteProfileByIndex(int index)
         {
             profiles.RemoveAt(index);
+        }
+        public void DeleteProfileById(int id)
+        {
+            profiles.RemoveAt(profiles.IndexOf(profiles.Where(e => e.Id == id).FirstOrDefault()));
         }
 
         public IEnumerable<Profile> GetCollection()

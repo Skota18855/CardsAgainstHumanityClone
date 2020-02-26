@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace CardsAgainstHumanityClone.Data
 {
-    interface IProfileDAL
+    public interface IProfileDAL
     {
         IEnumerable<Profile> GetCollection();
         IEnumerable<Profile> SearchForProfile(string username);
         bool AddProfile(Profile newProfile, out string errorMessage);
-        void DeleteProfile(int index);
+        void DeleteProfileByIndex(int index);
+        void DeleteProfileById(int id);
     }
 }
