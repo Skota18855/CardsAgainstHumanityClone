@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CardsAgainstHumanityClone.Models;
+using CardsAgainstHumanityClone.Data;
 
 namespace CardsAgainstHumanityClone.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IProfileDAL profileContext;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IProfileDAL context) : base()
         {
-            _logger = logger;
+            profileContext = context;
+            //_logger = logger;
         }
 
         public IActionResult Index()
@@ -23,18 +26,53 @@ namespace CardsAgainstHumanityClone.Controllers
             return View();
         }
 
-        public IActionResult LoginSlashSignup()
+        public IActionResult Login()
         {
             return View();
         }
 
-        //[HttpPost]
-        //public IActionResult LoginSlashSignup()
-        //{
-        //    return NotImplementedException;
-        //}
+        [HttpPost]
+        public IActionResult Login(Profile profile)
+        {
+            if (ModelState.IsValid)
+            {
+                if (profileContext.SearchForProfile(profile.UserName).First().UserName == profile.UserName && profileContext.SearchForProfile(profile.UserName).First().Password == profile.Password)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Login");
+                }
+            }
+            else
+            {
+                return View();
+            }
+        }
 
-        public IActionResult Privacy()
+        public IActionResult Signup()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Signup(Profile profile)
+        {
+            if (ModelState.IsValid)
+            {
+                profileContext.AddProfile(profile, out string message);
+
+                return RedirectToAction("GamePage");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+
+        public IActionResult GamePage()
         {
             return View();
         }
