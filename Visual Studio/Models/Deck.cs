@@ -60,18 +60,18 @@ namespace CardsAgainstHumanityClone.Models
             switch (type)
             {
                 case eReplaceType.Discard:
-                    length = DiscardedCards.Length + returnedCards.Length;
+                    length = DiscardPile.Length + returnedCards.Length;
                     tempDeck = new T[length];
-                    int discardLength = DiscardedCards.Length;
+                    int discardLength = DiscardPile.Length;
                     for (int i = 0; i < discardLength; i++)
                     {
-                        tempDeck[i] = DiscardedCards[i];
+                        tempDeck[i] = DiscardPile[i];
                     }
                     for (int i = discardLength; i < length; i++)
                     {
                         tempDeck[i] = returnedCards[i - discardLength];
                     }
-                    DiscardedCards = tempDeck;
+                    DiscardPile = tempDeck;
                     break;
                 case eReplaceType.Top:
                     length = DeckCards.Length + returnedCards.Length;
@@ -100,7 +100,7 @@ namespace CardsAgainstHumanityClone.Models
                     }
                     for (int i = deckLength; i < length; i++)
                     {
-                        tempDeck[i] = returnedLength[i - deckLength];
+                        tempDeck[i] = returnedCards[i - deckLength];
                     }
 
                     DeckCards = tempDeck;
@@ -120,9 +120,9 @@ namespace CardsAgainstHumanityClone.Models
         /// <param name="withDiscard">Defaults to false; determines if the discard pile should be placed back into the deck before shuffling.</param>
         public void ShuffleCards(bool withDiscard = false)
         {
-            if (withDiscard) ReplaceDiscardedCards(eReplaceType.Top);
-            List<BlackDeck> deckList = DeckCards;
-            T[] deckArray = T[DeckCards.Length];
+            if (withDiscard) ReplaceDiscardPile(eReplaceType.Top);
+            List<T> deckList = DeckCards.ToList<T>();
+            T[] deckArray = new T[DeckCards.Length];
             Random rng = new Random();
 
             int size = deckArray.Length;
@@ -139,12 +139,22 @@ namespace CardsAgainstHumanityClone.Models
         /// Replaces the discard pile back into the main deck in the manner specified by replaceType. The default is to shuffle them back in.
         /// </summary>
         /// <param name="replaceType">The type of replacement to do. Selecting Discard will have no effect.</param>
-        public void ReplaceDiscardedCards(eReplaceType replaceType = eReplaceType.Shuffle)
+        public void ReplaceDiscardPile(eReplaceType replaceType = eReplaceType.Shuffle)
         {
-            ReplaceCards(replaceType, DiscardedCards);
-            DiscardedCards = new T[];
+            ReplaceCards(replaceType, DiscardPile);
+            DiscardPile = new T[0];
         }
 
+        public void CreateDeck(IEnumerable<T> decks)
+        {
+            List<T> tempDeck = new List<T>();
+            foreach (T deck in decks)
+            {
+                tempDeck.Add(deck);
+            }
+
+            DeckCards = tempDeck.ToArray();
+        }
     }
 
     public class BlackDeck : Deck<BlackCard> { }
