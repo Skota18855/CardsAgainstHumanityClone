@@ -15,6 +15,7 @@ namespace CardsAgainstHumanityClone
     {
         public static void Main(string[] args)
         {
+            
             #region Trying to Connect to Database
             //try
             //{
