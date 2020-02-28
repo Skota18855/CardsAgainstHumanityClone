@@ -1,0 +1,27 @@
+﻿@model CardsAgainstHumanityClone.Models.Profile
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+<form method="post">
+    <p>
+        <label asp-for="UserName">Username:</label>
+        <input asp-for="UserName" />
+        <span asp-validation-for="UserName"></span>
+    </p>
+    <p>
+        <label asp-for="Password">Password:</label>
+        <input asp-for="Password" type="password"/>
+        <span asp-validation-for="Password"></span>
+    </p>
+    <p>
+        <label>Keep Me Logged In</label>
+        <input type="checkbox" />
+    </p>
+    <p><button type="submit">Submit</button></p>
+</form>
+<a asp-action="Signup">Don't Have an Account? Sign Up Here</a>
+
+
+
