@@ -61,9 +61,15 @@ namespace CardsAgainstHumanityClone.Controllers
         {
             if (ModelState.IsValid)
             {
-                profileContext.AddProfile(profile, out string message);
+                if (profileContext.AddProfile(profile, out string message))
+                {
+                    return RedirectToAction("GamePage");
+                }
+                else
+                {
+                    return View();
+                }
 
-                return RedirectToAction("Index", "Game", new { profile = profile });
             }
             else
             {
