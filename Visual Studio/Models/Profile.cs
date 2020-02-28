@@ -15,11 +15,19 @@ namespace CardsAgainstHumanityClone.Models
 
         public int Id { get; set; }
 
-        public static int count = 0;
+        private static int count = 0;
 
         public Profile()
         {
             Id = count++;
+        }
+
+        public Profile(int id, string username, string password, string email)
+        {
+            Id = id;
+            UserName = username;
+            Password = password;
+            Email = email;
         }
 
         [Required]
