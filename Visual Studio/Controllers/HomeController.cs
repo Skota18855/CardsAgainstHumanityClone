@@ -34,20 +34,13 @@ namespace CardsAgainstHumanityClone.Controllers
         [HttpPost]
         public IActionResult Login(Profile profile)
         {
-            if (ModelState.IsValid)
+            if (profileContext.CheckIfReturningUser(profile))
             {
-                if (profileContext.SearchForProfile(profile.UserName).First().UserName == profile.UserName && profileContext.SearchForProfile(profile.UserName).First().Password == profile.Password)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return RedirectToAction("Login");
-                }
+                return RedirectToAction("Index", "Game");
             }
             else
             {
-                return View();
+                return RedirectToAction("Login");
             }
         }
 
@@ -61,9 +54,15 @@ namespace CardsAgainstHumanityClone.Controllers
         {
             if (ModelState.IsValid)
             {
-                profileContext.AddProfile(profile, out string message);
+                if (profileContext.AddProfile(profile, out string message))
+                {
+                    return RedirectToAction("GamePage");
+                }
+                else
+                {
+                    return View();
+                }
 
-                return RedirectToAction("GamePage");
             }
             else
             {

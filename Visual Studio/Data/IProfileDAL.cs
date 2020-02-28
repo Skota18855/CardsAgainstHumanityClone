@@ -9,9 +9,8 @@ namespace CardsAgainstHumanityClone.Data
     public interface IProfileDAL
     {
         IEnumerable<Profile> GetCollection();
-        IEnumerable<Profile> SearchForProfile(string username);
+        bool CheckIfReturningUser(Profile profile);
         bool AddProfile(Profile newProfile, out string errorMessage);
-        void DeleteProfileByIndex(int index);
-        void DeleteProfileById(int id);
+        bool DeleteProfileById(int id, out string errorMessage);
     }
 }
