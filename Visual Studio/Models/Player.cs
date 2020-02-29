@@ -45,5 +45,9 @@ namespace CardsAgainstHumanityClone.Models
 			set { isCzar = value; }
 		}
 
+		public void PlayCard(WhiteCard playedCard)
+		{
+			Hand.Remove(playedCard);
+		}
 	}
 }

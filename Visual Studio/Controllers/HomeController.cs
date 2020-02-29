@@ -12,12 +12,14 @@ namespace CardsAgainstHumanityClone.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IProfileDAL profileContext;
+
+        public readonly IProfileDAL profileContext;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(IProfileDAL context) : base()
         {
             profileContext = context;
+            Bridge.context = context;
             //_logger = logger;
         }
 
