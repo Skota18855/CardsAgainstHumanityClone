@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CardsAgainstHumanityClone.Controllers;
+using CardsAgainstHumanityClone.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,7 +21,21 @@ namespace CardsAgainstHumanityClone.Models
 
         public Profile()
         {
-            Id = count++;
+            List<Profile> list = Bridge.context.GetCollection().ToList();
+            int lowestId = 0;
+            foreach (Profile profile in list)
+            {
+                if (lowestId == profile.Id)
+                {
+                    lowestId++;
+                }
+                else
+                {
+                    break;
+                }
+                    
+            }
+            Id = lowestId;
         }
 
         public Profile(int id, string username, string password, string email)
