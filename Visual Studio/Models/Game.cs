@@ -24,12 +24,16 @@ namespace CardsAgainstHumanityClone.Models
         BlackDeck BlackDeck;
         List<Player> Players;
 
+        BlackCard playedBlackCard = null;
+        List<WhiteCard> playedWhiteCards = new List<WhiteCard>();
+
         public Game()
         {
             WhiteDeck = new WhiteDeck();
             BlackDeck = new BlackDeck();
             Players = new List<Player>();
         }
+
         public void PlayGame(List<Profile> playerProfiles)
         {
             GameSetup(playerProfiles);
@@ -76,6 +80,7 @@ namespace CardsAgainstHumanityClone.Models
                 player.Hand = WhiteDeck.DrawCards(10).ToList();
             }
         }
+
 
         public void SetupRound(Player cardCzar)
         {

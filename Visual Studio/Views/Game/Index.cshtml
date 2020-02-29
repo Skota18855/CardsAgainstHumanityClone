@@ -1,22 +1,20 @@
-﻿@{
+﻿@model GameViewModel
+@{
     ViewData["Title"] = "Game Page";
 }
+<h1>Welcome</h1>
 
+<link rel="stylesheet" type="text/css" href="~/css/game.css" />
 
-<link rel="stylesheet" type="text/css" href="~/build/TemplateData/style.css" />
-<script src="~/build/TemplateData/UnityProgress.js"></script>
-<script src="~/build/Build/UnityLoader.js"></script>
-
-
-<script>
-    var gameInstance = UnityLoader.instantiate("gameContainer", "~/build/Build/build.json", { onProgress: UnityProgress });
-</script>
-
-<div class="webgl-content">
-    <div id="gameContainer" style="width: 960px; height: 600px"></div>
-    <div class="footer">
-        <div class="webgl-logo"></div>
-        <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
-        <div class="title">Figurines</div>
-    </div>
+<div class="gameContainer">
+    <div class="actions"></div><!--Container for the site actions like settings and chat-->
+    <div class="playerList">
+        
+    </div><!--Container for the player list, scores, and current czar-->
+    <div class="playerHand">
+        
+    </div><!--container for the player white card hand-->
+    <div class="boardContainer">
+        
+    </div><!--Container for the board, its black card and the played white cards-->
 </div>

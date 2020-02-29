@@ -38,7 +38,8 @@ namespace CardsAgainstHumanityClone.Controllers
             {
                 if (profileContext.CheckIfReturningUser(profile))
                 {
-                    return RedirectToAction("Index", "Game", profile);
+                    GameViewModel model = new GameViewModel(profile);
+                    return RedirectToAction("Index", "Game", model);
                 }
                 else
                 {
@@ -63,7 +64,7 @@ namespace CardsAgainstHumanityClone.Controllers
             {
                 if (profileContext.AddProfile(profile, out string message))
                 {
-                    return RedirectToAction("GamePage");
+                    return RedirectToAction("Index", "Game", profile);
                 }
                 else
                 {
