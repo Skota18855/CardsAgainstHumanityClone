@@ -39,9 +39,9 @@ namespace CardsAgainstHumanityClone.Models
             GameSetup(playerProfiles);
             bool gameOver = false;
             int currentCzarIndex = 0;
-            while(!gameOver)
+            while (!gameOver)
             {
-                StartRound(Players[currentCzarIndex]);
+                SetupRound(Players[currentCzarIndex]);
             }
         }
 
@@ -52,16 +52,24 @@ namespace CardsAgainstHumanityClone.Models
 
         private void GameSetup(List<Profile> playerProfiles)
         {
-            int firstPlayerIndex = new Random().Next(0, playerProfiles.Count);
-            for (int i = firstPlayerIndex; i != firstPlayerIndex - 1; i++)
+            if (houseRules[0].IsEnabled)
             {
-                if (i < playerProfiles.Count)
+                
+            }
+            else
+            {
+
+                int firstPlayerIndex = new Random().Next(0, playerProfiles.Count);
+                for (int i = firstPlayerIndex; i != firstPlayerIndex - 1; i++)
                 {
-                    Players.Add(CreatePlayer(playerProfiles[i]));
-                }
-                else
-                {
-                    i = 0;
+                    if (i < playerProfiles.Count)
+                    {
+                        Players.Add(CreatePlayer(playerProfiles[i]));
+                    }
+                    else
+                    {
+                        i = 0;
+                    }
                 }
             }
             //WhiteDeck.CreateDeck();
@@ -73,9 +81,10 @@ namespace CardsAgainstHumanityClone.Models
             }
         }
 
-        public void StartRound(Player czar)
-        {
 
+        public void SetupRound(Player cardCzar)
+        {
+            int numPlayedCards = 0;
         }
     }
 }
