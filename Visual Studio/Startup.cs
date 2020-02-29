@@ -42,15 +42,7 @@ namespace CardsAgainstHumanityClone
             FileExtensionContentTypeProvider contentTypeProvider = (FileExtensionContentTypeProvider)option.ContentTypeProvider ??
             new FileExtensionContentTypeProvider();
 
-            contentTypeProvider.Mappings.Add(".mem", "application/octet-stream");
-            contentTypeProvider.Mappings.Add(".data", "application/octet-stream");
-            contentTypeProvider.Mappings.Add(".memgz", "application/octet-stream");
-            contentTypeProvider.Mappings.Add(".datagz", "application/octet-stream");
-            contentTypeProvider.Mappings.Add(".unity3dgz", "application/octet-stream");
-            contentTypeProvider.Mappings.Add(".jsgz", "application/x-javascript; charset=UTF-8");
-            option.ContentTypeProvider = contentTypeProvider;
-            app.UseStaticFiles(option);
-
+            app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();

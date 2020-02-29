@@ -7,8 +7,8 @@ namespace CardsAgainstHumanityClone.Models
 {
     public class GameViewModel
     {
-        public Profile ProfileModel { get; set; } = null;
-        public Game GameModel { get; set; } = null;
+        public Profile ProfileModel { get; set; }
+        public Game GameModel { get; set; }
 
         public GameViewModel() { }
         public GameViewModel(Profile p) { ProfileModel = p; GameModel = new Game(); }
