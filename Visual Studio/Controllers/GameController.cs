@@ -11,7 +11,8 @@ namespace CardsAgainstHumanityClone.Controllers
     {
         public IActionResult Index(Profile profile = null)
         {
-            return View(profile);
+            GameViewModel model = new GameViewModel(profile);
+            return View(model);
         }
     }
 }
