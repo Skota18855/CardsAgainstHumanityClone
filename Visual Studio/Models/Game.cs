@@ -37,7 +37,7 @@ namespace CardsAgainstHumanityClone.Models
             int currentCzarIndex = 0;
             while(!gameOver)
             {
-                StartRound(Players[currentCzarIndex]);
+                SetupRound(Players[currentCzarIndex]);
             }
         }
 
@@ -69,9 +69,9 @@ namespace CardsAgainstHumanityClone.Models
             }
         }
 
-        public void StartRound()
+        public void SetupRound(Player cardCzar)
         {
-
+            int numPlayedCards = 0;
         }
     }
 }
