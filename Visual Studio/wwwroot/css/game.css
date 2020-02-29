@@ -1,1 +1,34 @@
-﻿
+﻿.gameContainer {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: auto;
+    height: auto;
+    padding: 1%, 4%;
+    border: 1px solid red;
+}
+
+.playerList {
+    width: 35%;
+    height: 100%;
+    border: 1px solid blue;
+}
+
+.playerHand {
+    width: 100%;
+    height: 35%;
+    border: 1px solid green;
+}
+
+.boardContainer {
+    width: 100%;
+    height: 100%;
+    border: 1px solid orange;
+}
