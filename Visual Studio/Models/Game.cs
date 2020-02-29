@@ -7,7 +7,7 @@ namespace CardsAgainstHumanityClone.Models
 {
     public class Game
     {
-        List<HouseRule> houseRules = new List<HouseRule>()
+        readonly public List<HouseRule> houseRules = new List<HouseRule>()
         {
             new HouseRule("Rando Cardrissian","Every round, pick one random white card from the pile and place it into play. This card belongs to an imaginary player named Rando Cardrissian, and if he wins the game, all players go home in a state of everlasting shame.",false),
             new HouseRule("Happy Ending"," When you’re ready to end the game, play the “Make a haiku” black card. This is the official ceremonial ending of a good game of Cards Against Humanity. Note: Haikus don’t need to follow the 5-7-5 form. They just have to be read dramatically",false),
@@ -19,5 +19,59 @@ namespace CardsAgainstHumanityClone.Models
             new HouseRule("Tie Breaker"," If the Card Czar can’t decide between two white cards, they may declare a Tie Breaker. In the event of a Tie Breaker, the more conventionally attractive player wins.",false),
             new HouseRule("Don't Play Cards Against Humanity","Walk to a park. Call your mother. Live a little",false)
         };
+
+        WhiteDeck WhiteDeck;
+        BlackDeck BlackDeck;
+        List<Player> Players;
+
+        public Game()
+        {
+            WhiteDeck = new WhiteDeck();
+            BlackDeck = new BlackDeck();
+            Players = new List<Player>();
+        }
+        public void PlayGame(List<Profile> playerProfiles)
+        {
+            GameSetup(playerProfiles);
+            bool gameOver = false;
+            int currentCzarIndex = 0;
+            while(!gameOver)
+            {
+                StartRound(Players[currentCzarIndex]);
+            }
+        }
+
+        private Player CreatePlayer(Profile profile)
+        {
+            return new Player(profile.UserName);
+        }
+
+        private void GameSetup(List<Profile> playerProfiles)
+        {
+            int firstPlayerIndex = new Random().Next(0, playerProfiles.Count);
+            for (int i = firstPlayerIndex; i != firstPlayerIndex - 1; i++)
+            {
+                if (i < playerProfiles.Count)
+                {
+                    Players.Add(CreatePlayer(playerProfiles[i]));
+                }
+                else
+                {
+                    i = 0;
+                }
+            }
+            //WhiteDeck.CreateDeck();
+            //BlackDeck.CreateDeck();
+
+            foreach (Player player in Players)
+            {
+                player.Hand = WhiteDeck.DrawCards(10).ToList();
+            }
+        }
+
+        public void StartRound()
+        {
+
+        }
     }
 }
