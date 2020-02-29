@@ -1,6 +1,7 @@
 using CardsAgainstHumanityClone.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -37,8 +38,20 @@ namespace CardsAgainstHumanityClone
                 app.UseHsts();
             }
 
+            StaticFileOptions option = new StaticFileOptions();
+            FileExtensionContentTypeProvider contentTypeProvider = (FileExtensionContentTypeProvider)option.ContentTypeProvider ??
+            new FileExtensionContentTypeProvider();
+
+            contentTypeProvider.Mappings.Add(".mem", "application/octet-stream");
+            contentTypeProvider.Mappings.Add(".data", "application/octet-stream");
+            contentTypeProvider.Mappings.Add(".memgz", "application/octet-stream");
+            contentTypeProvider.Mappings.Add(".datagz", "application/octet-stream");
+            contentTypeProvider.Mappings.Add(".unity3dgz", "application/octet-stream");
+            contentTypeProvider.Mappings.Add(".jsgz", "application/x-javascript; charset=UTF-8");
+            option.ContentTypeProvider = contentTypeProvider;
+            app.UseStaticFiles(option);
+
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
             app.UseWebSockets();
