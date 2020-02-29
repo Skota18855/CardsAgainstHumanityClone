@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CardsAgainstHumanityClone.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CardsAgainstHumanityClone.Controllers
@@ -12,9 +13,9 @@ namespace CardsAgainstHumanityClone.Controllers
         {
             return RedirectToAction("ProfileDetails");
         }
-        public IActionResult ProfileDetails()
+        public IActionResult ProfileDetails(Profile profile)
         {
-            return View();
+            return View(profile);
         }
     }
 }
