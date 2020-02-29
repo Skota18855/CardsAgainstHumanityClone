@@ -15,6 +15,7 @@ namespace CardsAgainstHumanityClone.Data
 
         public bool AddProfile(Profile newProfile, out string errorMessage)
         {
+
             SqlCommand cmd = new SqlCommand($"insert into UsersTable(Id,Username,Password,Email) values('{newProfile.Id}','{newProfile.UserName}','{newProfile.Password}','{newProfile.Email}')", con);
             cmd.CommandType = CommandType.Text;
             bool isSuccessful = true;

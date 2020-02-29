@@ -36,7 +36,7 @@ namespace CardsAgainstHumanityClone.Controllers
         {
             if (profileContext.GetCollection().Count() > 0)
             {
-                if (profileContext.SearchForProfile(profile.UserName).First().UserName == profile.UserName && profileContext.SearchForProfile(profile.UserName).First().Password == profile.Password)
+                if (profileContext.CheckIfReturningUser(profile))
                 {
                     return RedirectToAction("Index", "Game", profile);
                 }
