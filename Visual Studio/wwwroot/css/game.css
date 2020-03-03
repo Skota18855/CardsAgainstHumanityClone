@@ -3,6 +3,12 @@
     height: 100%;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.gameSubContainer {
+    flex-direction: row;
 }
 
 .actions {
@@ -11,7 +17,7 @@
     right: 0;
     width: auto;
     height: auto;
-    padding: 1%, 4%;
+    padding: 1% 4%;
     border: 1px solid red;
 }
 
@@ -19,6 +25,7 @@
     width: 35%;
     height: 100%;
     border: 1px solid blue;
+    display: inline-block;
 }
 
 .playerHand {
@@ -31,4 +38,5 @@
     width: 100%;
     height: 100%;
     border: 1px solid orange;
+    display: inline-block;
 }

@@ -1,25 +1,38 @@
-﻿@model GameViewModel
+﻿<style>
+    body {
+        height: 100%;
+    }
+</style>
+
+@model GameViewModel
 @{
     ViewData["Title"] = "Game Page";
 }
-<h1>Welcome</h1>
-
 <link rel="stylesheet" type="text/css" href="~/css/game.css" />
 
+<div class="actions">
+    <!--Container for the site actions like settings and chat-->
+
+</div>
+
 <div class="gameContainer">
-    <div class="actions"><!--Container for the site actions like settings and chat-->
-    
+
+    <div class="gameSubContainer">
+        <div class="playerList">
+            <!--Container for the player list, scores, and current czar-->
+
+        </div>
+
+        <div class="boardContainer">
+            <!--Container for the board, its black card and the played white cards-->
+
+        </div>
     </div>
 
-    <div class="playerList"><!--Container for the player list, scores, and current czar-->
-        
-    </div>
+    <div class="playerHand">
+        <!--container for the player white card hand-->
 
-    <div class="playerHand"><!--container for the player white card hand-->
-        
-    </div>
-
-    <div class="boardContainer"><!--Container for the board, its black card and the played white cards-->
-        
     </div>
 </div>
+
+<!--https://www.w3schools.com/csS/tryit.asp?filename=trycss3_flexbox_website2 retrofit into this site (same concept as here being attempted)-->
