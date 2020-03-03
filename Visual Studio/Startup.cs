@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+//using CardsAgainstHumanityClone.Hubs;
 
 namespace CardsAgainstHumanityClone
 {
@@ -21,6 +22,7 @@ namespace CardsAgainstHumanityClone
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            //services.AddSignalR();
             services.AddTransient<IProfileDAL, CloneProfileDB>();
         }
 
@@ -53,6 +55,7 @@ namespace CardsAgainstHumanityClone
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                //endpoints.MapHub<GameHub>("/gamehub");
             });
         }
     }
