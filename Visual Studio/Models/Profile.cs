@@ -33,14 +33,34 @@ namespace CardsAgainstHumanityClone.Models
                 {
                     break;
                 }
-                    
+
             }
             Id = lowestId;
         }
 
-        public Profile(int id, string username, string password, string email)
+        public Profile(string username, string password, string email, int id = -1)
         {
-            Id = id;
+            if (id == -1)
+            {
+                List<Profile> list = Bridge.context.GetCollection().ToList();
+                int lowestId = 0;
+                foreach (Profile profile in list)
+                {
+                    if (lowestId == profile.Id)
+                    {
+                        lowestId++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                Id = lowestId;
+            }
+            else
+            {
+                Id = id;
+            }
             UserName = username;
             Password = password;
             Email = email;
@@ -58,7 +78,7 @@ namespace CardsAgainstHumanityClone.Models
             get { return password; }
             set { password = value; }
         }
-        [EmailAddress(ErrorMessage ="Must be a valid email address")]
+        [EmailAddress(ErrorMessage = "Must be a valid email address")]
         public string Email
         {
             get { return email; }
