@@ -41,7 +41,9 @@ namespace CardsAgainstHumanityClone.Models
             int currentCzarIndex = 0;
             while (!gameOver)
             {
+
                 SetupRound(Players[currentCzarIndex]);
+                PlayRound();
             }
         }
 
@@ -54,24 +56,22 @@ namespace CardsAgainstHumanityClone.Models
         {
             if (houseRules[0].IsEnabled)
             {
-                
+                playerProfiles.Add(new Profile("Rando Cardrissian", null, null));
             }
-            else
-            {
 
-                int firstPlayerIndex = new Random().Next(0, playerProfiles.Count);
-                for (int i = firstPlayerIndex; i != firstPlayerIndex - 1; i++)
+            int firstPlayerIndex = new Random().Next(0, playerProfiles.Count);
+            for (int i = firstPlayerIndex; i != firstPlayerIndex - 1; i++)
+            {
+                if (i < playerProfiles.Count)
                 {
-                    if (i < playerProfiles.Count)
-                    {
-                        Players.Add(CreatePlayer(playerProfiles[i]));
-                    }
-                    else
-                    {
-                        i = 0;
-                    }
+                    Players.Add(CreatePlayer(playerProfiles[i]));
+                }
+                else
+                {
+                    i = 0;
                 }
             }
+
             //WhiteDeck.CreateDeck();
             //BlackDeck.CreateDeck();
 
@@ -84,7 +84,12 @@ namespace CardsAgainstHumanityClone.Models
 
         public void SetupRound(Player cardCzar)
         {
-            int numPlayedCards = 0;
+            
+        }
+
+        private async void PlayRound()
+        {
+            
         }
     }
 }

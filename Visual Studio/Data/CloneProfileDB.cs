@@ -31,24 +31,6 @@ namespace CardsAgainstHumanityClone.Data
                 errorMessage = ex.Message;
                 isSuccessful = false;
             }
-
-            //foreach(Profile profile in profiles)
-            //{
-            //    if(profile.UserName == newProfile.UserName)
-            //    {
-            //        errorMessage = "User with that username already exists.";
-            //        isSuccessful = false;
-            //        return isSuccessful;
-            //    }
-            //    if (profile.Email == newProfile.Email)
-            //    {
-            //        errorMessage = "User with that email already exists.";
-            //        isSuccessful = false;
-            //        return isSuccessful;
-            //    }
-            //}
-            //profiles.Add(newProfile);
-            //errorMessage = "Profile created successfully";
             return isSuccessful;
         }
 
@@ -71,12 +53,7 @@ namespace CardsAgainstHumanityClone.Data
                 isSuccessful = false;
             }
             return isSuccessful;
-            //profiles.RemoveAt(index);
         }
-        //public void DeleteProfileById(int id, out string errorMessage)
-        //{
-        //    profiles.RemoveAt(profiles.IndexOf(profiles.Where(e => e.Id == id).FirstOrDefault()));
-        //}
 
         public IEnumerable<Profile> GetCollection()
         {
@@ -91,7 +68,7 @@ namespace CardsAgainstHumanityClone.Data
                 {
                     while (reader.Read())
                     {
-                        profiles.Add(new Profile(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3)));
+                        profiles.Add(new Profile(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(0)));
                     }
                 }
                 con.Close();
