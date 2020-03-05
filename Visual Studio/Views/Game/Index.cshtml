@@ -15,6 +15,24 @@
         <div class="playerList">
             <!--Container for the player list, scores, and current czar-->
 
+            <div class="player">
+                <p>Player 1 - 0</p>
+            </div>
+            <div class="player">
+                <p>Player 2 - 2</p>
+            </div>
+            <div class="player">
+                <p>Player 3 - 3</p>
+            </div>
+            <div class="player">
+                <p>Player 4 - 0</p>
+            </div>
+            <div class="player">
+                <p>Player 5 - 6</p>
+            </div>
+            <div class="player">
+                <p>Player 6 - 0 - CZAR</p>
+            </div>
         </div>
 
         <div class="boardContainer">
@@ -24,16 +42,30 @@
                 <p class="blackCardContent">Placeholder placeholder placeholder placeholder placeholder</p>
             </div>
 
+            <div class="gameCard whiteCard">
+                <p class="whiteCardContent">PlayedPlaceholder placeholder placeholder placeholder placeholder</p>
+            </div>
+            <div class="gameCard whiteCard">
+                <p class="whiteCardContent">PlayedPlaceholder placeholder placeholder placeholder placeholder</p>
+            </div>
+            <div class="gameCard whiteCard">
+                <p class="whiteCardContent">PlayedPlaceholder placeholder placeholder placeholder placeholder</p>
+            </div>
+            <div class="gameCard whiteCard">
+                <p class="whiteCardContent">PlayedPlaceholder placeholder placeholder placeholder placeholder</p>
+            </div>
+            <div class="gameCard whiteCard">
+                <p class="whiteCardContent">PlayedPlaceholder placeholder placeholder placeholder placeholder</p>
+            </div>
+
         </div>
     </div>
 
     <div class="playerHand">
         <!--container for the player white card hand-->
-
         <div class="gameCard whiteCard">
             <p class="whiteCardContent">Placeholder placeholder placeholder placeholder placeholder</p>
         </div>
-
         <div class="gameCard whiteCard">
             <p class="whiteCardContent">Placeholder placeholder placeholder placeholder placeholder</p>
         </div>
@@ -63,10 +95,8 @@
         </div>
 
         @*@foreach(WhiteCard wc in Model.GameModel.GetLocalPlayer(Model.ProfileModel).Hand)
-        {
+            {
 
-        }*@
+            }*@
     </div>
 </div>
-
-<!--https://www.w3schools.com/csS/tryit.asp?filename=trycss3_flexbox_website2 retrofit into this site (same concept as here being attempted)-->
