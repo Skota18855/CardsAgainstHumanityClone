@@ -81,6 +81,10 @@ namespace CardsAgainstHumanityClone.Models
             }
         }
 
+        public Player GetLocalPlayer(Profile p)
+        {
+            return null;
+        }
 
         public void SetupRound(Player cardCzar)
         {
