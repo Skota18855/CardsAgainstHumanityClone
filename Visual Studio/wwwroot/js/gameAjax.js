@@ -73,7 +73,7 @@ function setCzar(playerIndex) {
     }
 
     playerList.forEach(p => p.isCzar = false);
-    
+
     playerList[playerIndex].isCzar = true;
 
     let playerElements = getClasses("player");
@@ -83,12 +83,14 @@ function setCzar(playerIndex) {
             playerElements[i].innerHTML = playerElements[i].innerHTML.substring(0, playerElements[i].innerHTML.length - 6);
         }
     }
-    
+
     playerElements[playerIndex].innerHTML += " - CZAR";
 }
 
 function addCardTo(htmlElement, cardType, cardContent, dataAttributeValue) {
-    var elementToAdd = `<div class='gameCard ${cardType}' ${cardDataAttributeString}='${dataAttributeValue}'><p class='${cardType}Content'>${cardContent}</p></div>`
+    //If the element is to be added to the player's hand then it's onclick should be to playCard and all the other cards onclick should be disabled unless the black card is a picktwo. 
+    //If the element is added to the gameBoard (should only be done via the playCard onclick method) the onclick should be chooseWinner but only be clickable by the cardCzar and only one should be clickable.
+    var elementToAdd = `<div onclick='playCard("${cardContent}","${dataAttributeValue}")' class='gameCard ${cardType}' ${cardDataAttributeString}='${dataAttributeValue}'><p class='${cardType}Content'>${cardContent}</p></div>`
     htmlElement.innerHTML += elementToAdd;
 }
 
@@ -101,5 +103,14 @@ function replaceAt(string, index, replace) {
 }
 
 function removeCard(cardContentToRemove) {
+
+}
+function playCard(cardContent, cardOwner) {
+    //Remove card from player's hand and add that card to the gameboard.
+    //removeCard()
+    addCard("whiteCard", cardContent, "gameBoard", cardOwner);
+}
+
+function chooseWinner() {
 
 }
