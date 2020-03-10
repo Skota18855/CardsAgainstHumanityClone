@@ -11,7 +11,24 @@ namespace CardsAgainstHumanityClone.Hubs
     {
         public async Task SendCard(string user, string whiteCardText)
         {
-            await Clients.All.SendAsync("ReceiveCard", user, whiteCardText);
+            string sending = CardToJson(user, whiteCardText);
+            await Clients.All.SendAsync("ReceiveCard", sending);
+        }
+
+        public async Task FinalizeCard(string cardJson)
+        {
+            GameCard card = GameCard.FromJson(cardJson);
+
+            await Clients.All.SendAsync("FinalReceive", card.cardContent, card.owner);
+        }
+
+        private string CardToJson(string user, string whiteCardText)
+        {
+            GameCard card = new GameCard();
+            card.cardType = "whiteCard";
+            card.cardContent = whiteCardText;
+            card.owner = user;
+            return GameCard.ToJson(card);
         }
     }
 }
