@@ -12,12 +12,12 @@ function addCard(cardType, cardContent, cardLocation, cardOwner) {
     switch (cardLocation) {
 
         case "playerHand":
-            addCardTo(playerHand, cardType, cardContent, cardOwner);
+            addCardTo(playerHand, cardType, cardContent, cardOwner, "cardInPlayerHand");
             break;
 
         case "gameBoard":
         case "":
-            addCardTo(gameBoard, cardType, cardContent, cardOwner);
+            addCardTo(gameBoard, cardType, cardContent, cardOwner, "");
             break;
 
         default:
@@ -87,10 +87,13 @@ function setCzar(playerIndex) {
     playerElements[playerIndex].innerHTML += " - CZAR";
 }
 
-function addCardTo(htmlElement, cardType, cardContent, dataAttributeValue) {
+function addCardTo(htmlElement, cardType, cardContent, dataAttributeValue, intoPlayerHandClass) {
     //If the element is to be added to the player's hand then it's onclick should be to playCard and all the other cards onclick should be disabled unless the black card is a picktwo. 
     //If the element is added to the gameBoard (should only be done via the playCard onclick method) the onclick should be chooseWinner but only be clickable by the cardCzar and only one should be clickable.
-    var elementToAdd = `<div onclick='playCard("${cardContent}","${dataAttributeValue}")' class='gameCard ${cardType}' ${cardDataAttributeString}='${dataAttributeValue}'><p class='${cardType}Content'>${cardContent}</p></div>`
+    var elementToAdd;
+
+    if (intoPlayerHandClass.length > 0) { elementToAdd = `<div onclick='playCard("${cardContent}","${dataAttributeValue}", this)' class='gameCard ${cardType} ${intoPlayerHandClass}' ${cardDataAttributeString}='${dataAttributeValue}'><p class='${cardType}Content'>${cardContent}</p></div>` }
+    else { elementToAdd = `<div class='gameCard ${cardType} ${intoPlayerHandClass}' ${cardDataAttributeString}='${dataAttributeValue}'><p class='${cardType}Content'>${cardContent}</p></div>` }
     htmlElement.innerHTML += elementToAdd;
 }
 
@@ -102,13 +105,16 @@ function replaceAt(string, index, replace) {
     return string.substring(0, index) + replace + string.substring(index + 1);
 }
 
-function removeCard(cardContentToRemove) {
-
+function removeCard(cardElementToRemove) {
+    //remove card from html
+    cardElementToRemove.parentNode.removeChild(cardElementToRemove);
 }
-function playCard(cardContent, cardOwner) {
+
+function playCard(cardContent, cardOwner, cardToRemove) {
     //Remove card from player's hand and add that card to the gameboard.
     //removeCard()
     addCard("whiteCard", cardContent, "gameBoard", cardOwner);
+    removeCard(cardToRemove);
 }
 
 function chooseWinner() {
