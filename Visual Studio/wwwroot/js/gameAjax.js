@@ -3,6 +3,7 @@ var playerHand = getClasses("playerHand")[0];
 var playerListElement = getClasses("playerList")[0];
 
 let playerList = [];
+let playerListElements = getClasses("player");
 
 var cardDataAttributeString = "data-owner";
 
@@ -38,8 +39,28 @@ function addPlayer(playerName) {
 
     playerList.push(player);
 
-    var elementToAdd = `<div class="player">${playerName} - ${player.score}</div>`
+    var elementToAdd = `<div class="player">${player.score} - ${playerName}</div>`
     playerListElement.innerHTML += elementToAdd;
+}
+
+function removePlayer(playerIndex) {
+    //remove player
+    //bump everyone at backof list up to remove the empty spot
+    //reflect the removal on the front end
+}
+
+function incrementPlayerScore(playerIndex) {
+    if (typeof playerIndex == "number" && playerIndex >= playerList.length || playerIndex < 0) { return console.error(`incrementPlayerScore(playerIndex) was invoked using incorrect arguments. playerIndex must be a number greater than 0 and less than the total number of players. playerIndex was ${playerIndex}; player count is ${playerList.length}`); }
+
+    playerList[playerIndex].score++;
+    updateFrontEndPlayer(playerIndex);
+}
+
+function updateFrontEndPlayer(playerIndex) {
+    //safe input... only called from incrementPlayerScore. If being called elsewhere, validate the index is a safe one before calling this method
+
+    //get the front end player element and update the score value
+    playerListElements[playerIndex].innerHTML = replaceAt(playerListElements[playerIndex].innerHTML, 0, playerList[playerIndex].score);
 }
 
 function setCzar(playerIndex) {
@@ -73,4 +94,12 @@ function addCardTo(htmlElement, cardType, cardContent, dataAttributeValue) {
 
 function getClasses(className) {
     return document.getElementsByClassName(className);
+}
+
+function replaceAt(string, index, replace) {
+    return string.substring(0, index) + replace + string.substring(index + 1);
+}
+
+function removeCard(cardContentToRemove) {
+
 }
