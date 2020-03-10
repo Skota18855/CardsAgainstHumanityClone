@@ -39,7 +39,7 @@ function addPlayer(playerName) {
 
     playerList.push(player);
 
-    var elementToAdd = `<div class="player">${player.score} - ${playerName}</div>`
+    var elementToAdd = `<div onclick="testUpdatePlayerScore(this)" class="player" data-player='${player.name}'>${player.score} - ${playerName}</div>`
     playerListElement.innerHTML += elementToAdd;
 }
 
@@ -119,4 +119,41 @@ function playCard(cardContent, cardOwner, cardToRemove) {
 
 function chooseWinner() {
 
+}
+
+
+////DEBUG CODE////
+function testAddPlayer() {
+    let nameElm = document.getElementById("newNameId");
+    if (nameElm.value === "") return console.error("Please enter a name for the test player to add");
+
+    addPlayer(nameElm.value);
+    nameElm.value = "";
+}
+
+function testUpdatePlayerScore(playerElement) {
+    let playerName = playerElement.dataset.player;
+
+    for (let i = 0; i < playerList.length; i++) {
+        if (playerList[i].name === playerName) {
+            incrementPlayerScore(i);
+        }
+    }
+}
+
+function testAddCard() {
+    let cardDestElm = document.getElementById("addTestCard");
+
+    if (cardDestElm.checked) {
+        //hand
+        addCard("whiteCard", "test content", "playerHand", profile);
+    }
+    else {
+        //board
+        addCard("whiteCard", "test content", "gameBoard", profile);
+    }
+}
+
+function testResetBoard() {
+    resetGameBoard("debug board reset");
 }

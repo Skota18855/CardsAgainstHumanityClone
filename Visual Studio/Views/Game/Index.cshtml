@@ -4,10 +4,7 @@
 }
 <link rel="stylesheet" type="text/css" href="~/css/game.css" />
 
-<div class="actions">
-    <!--Container for the site actions like settings and chat-->
-
-</div>
+<script>const profile = "@Model.ProfileModel.UserName";</script>
 
 <div class="gameContainer">
 
@@ -19,15 +16,25 @@
 
         <div class="boardContainer">
             <!--Container for the board, its black card and the played white cards-->
-            
+
         </div>
     </div>
 
     <div class="playerHand">
         <!--container for the player white card hand-->
-        
+
     </div>
 </div>
 
 <script src="~/js/gameAjax.js"></script>
-<script>addPlayer("@Model.ProfileModel.UserName");</script>
+
+<script>
+    addPlayer(profile);
+</script>
+
+<div class="actions">
+    <!--Container for the site actions like settings and chat-->
+    <span><input id="newNameId" type="text" placeholder="NewPlayerName" /><button onclick="testAddPlayer()">Add Test Player</button></span><br />
+    <span><label for="addTestCard">Put in player hand (off is to game board)</label><input id="addTestCard" name="addTestCard" type="checkbox" checked /><button onclick="testAddCard()">Add Test Card</button></span><br />
+    <span><button onclick="testResetBoard()">Reset Board</button></span>
+</div>
