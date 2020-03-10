@@ -11,7 +11,6 @@ namespace CardsAgainstHumanityClone.Models
         {
             new HouseRule("Rando Cardrissian","Every round, pick one random white card from the pile and place it into play. This card belongs to an imaginary player named Rando Cardrissian, and if he wins the game, all players go home in a state of everlasting shame.",false),
             new HouseRule("Happy Ending"," When you’re ready to end the game, play the “Make a haiku” black card. This is the official ceremonial ending of a good game of Cards Against Humanity. Note: Haikus don’t need to follow the 5-7-5 form. They just have to be read dramatically",false),
-            new HouseRule("Never Have I Ever","At any time, players may discard cards that they don’t understand, but they must confess their ignorance to the group and suffer the resulting humiliation.",false),
             new HouseRule("Wheaton's Law","Each round, the Card Czar draws two black cards, chooses the one they’d prefer to play, and puts the other at the bottom of the black card pile",false),
             new HouseRule("Rebooting the Universe"," At any time, players may trade in a point to return as many white cards as they’d like to the deck and draw back to ten.",false),
             new HouseRule("Packing Heat"," For Pick 2s, all players draw an extra card before playing the hand to open up more options",false),
@@ -38,11 +37,9 @@ namespace CardsAgainstHumanityClone.Models
         {
             GameSetup(playerProfiles);
             bool gameOver = false;
-            int currentCzarIndex = 0;
             while (!gameOver)
             {
-
-                SetupRound(Players[currentCzarIndex]);
+                SetupRound();
                 PlayRound();
             }
         }
@@ -86,14 +83,27 @@ namespace CardsAgainstHumanityClone.Models
             return null;
         }
 
-        public void SetupRound(Player cardCzar)
+        public void SetupRound()
         {
-            
+            playedBlackCard = BlackDeck.DrawCards().First();
+
+            if (houseRules[4].IsEnabled && playedBlackCard.BlankSpaces == 2)
+            {
+                foreach (Player player in Players.Where(player => player.IsCzar == false))
+                {
+                    player.Hand.Add(WhiteDeck.DrawCards().First());
+                }
+            }
         }
 
-        private async void PlayRound()
+        private void PlayRound()
         {
-            
+
+        }
+
+        public void EndRound(WhiteCard chosenCard)
+        {
+            Players.Where(player => player.Hand.Contains(chosenCard)).First().Score++;
         }
     }
 }

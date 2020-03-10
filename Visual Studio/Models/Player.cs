@@ -7,7 +7,6 @@ namespace CardsAgainstHumanityClone.Models
 {
     public class Player
     {
-
 		private string name;
 		public string Name
 		{
